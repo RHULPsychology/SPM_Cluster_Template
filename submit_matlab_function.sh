@@ -10,14 +10,16 @@
 source /usr/local/apps/psycapps/config/matlab_bash
 
 # Make sure to change this according to your account and that this folder exists
-OUTDIR=/MRIWork/MRIWork03/nf/forida_begum/logs
-mkdir -p $OUTDIR
+OUTPUT_LOG_DIR=$(pwd)/log
+mkdir -p $OUTPUT_LOG_DIR
+
+script_folder=$(pwd)
 
 for subject_number in {2..3}
 do
     echo "Processing Subject $subject_number"
-    qsub    -l h_cpu=00:02:00,h_rss=8G \
-            -o ${OUTDIR}/matlab_${subject_number}.out \
-            -e ${OUTDIR}/matlab_${subject_number}.err \
-            /MRIWork/MRI-Scratch/nick/call_matlab_function.sh $subject_number;       
+    qsub    -l h_rss=8G \
+            -o ${OUTPUT_LOG_DIR}/matlab_${subject_number}.out \
+            -e ${OUTPUT_LOG_DIR}/matlab_${subject_number}.err \
+            $script_folder/call_matlab_function.sh $subject_number;       
 done
