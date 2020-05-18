@@ -18,7 +18,7 @@ script_folder=$(pwd)
 for subject_number in {2..3}
 do
     echo "Processing Subject $subject_number"
-    qsub    -l h_rss=8G \
+    qsub    -l h_rss=4G \
             -o ${OUTPUT_LOG_DIR}/matlab_${subject_number}.out \
             -e ${OUTPUT_LOG_DIR}/matlab_${subject_number}.err \
             $script_folder/call_matlab_function.sh $subject_number;       
